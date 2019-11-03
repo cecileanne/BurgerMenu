@@ -13,15 +13,15 @@ module.exports = function(app) {
     burger.cookNew(req.body.name, function(data) {
       //   res.render("index", { burgers: data });
       res.json(data);
-      //   res.redirect("/");
+      res.redirect("/");
     });
   });
 
   // moves burgers to the devoured column
-  app.put("/api/burgers/:id", function(req, res) {
+  app.put("/api/:id", function(req, res) {
     burger.devourOne(req.params.id, function(data) {
       res.json(data);
-      //   res.redirect("/");
+      // res.redirect("/");
     });
   });
 }; // closes module exports
