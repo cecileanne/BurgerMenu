@@ -8,23 +8,20 @@ module.exports = function(app) {
     });
   });
 
-  // Post route -> back to home
+  // adds new burger
   app.post("/api", function(req, res) {
-    connection.query(
-      "INSERT INTO burgers (burger) VALUES (?)",
-      [req.body.task],
-      function(err, result) {
-        if (err) throw err;
-
-        res.redirect("/");
-      }
-    );
+    burger.cookNew(req.body.name, function(data) {
+      //   res.render("index", { burgers: data });
+      res.json(data);
+      //   res.redirect("/");
+    });
   });
 
-  // TO DO Post route -> devour select
-  app.post("/api/:id"),
-    function(req, res) {
-      // TO DO CONNECTION QUERY
-      console.log(req.params.id);
-    };
+  // moves burgers to the devoured column
+  app.put("/api/burgers/:id", function(req, res) {
+    burger.devourOne(req.params.id, function(data) {
+      res.json(data);
+      //   res.redirect("/");
+    });
+  });
 }; // closes module exports

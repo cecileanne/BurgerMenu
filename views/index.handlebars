@@ -1,44 +1,76 @@
-<h1>Good Vurger</h1>
-
-<h3>Vegetarian Burgers that your carnivorous friends will love.</h3>
-<div class="plate">
-	<h5>plate</h5>
-	<ul>
-		{{#each burgers}}
-		{{#unless this.devoured}}
-		<li>
-			<button class="devour" data-id='{{this.id}}'>devour</button>
-			<p>Burger: {{this.burgerStyle}}</p>
-		</li>
-		{{/unless}}
-		{{/each}}
-	</ul>
+<div class="row">
+	<h1>Good Vurger</h1>
+</div>
+<hr>
+<div class="row">
+	<h3>Vegetarian Burgers that your carnivorous friends will love.</h3>
+	<br>
+	<p>If you don't see a burger you like, please suggest it and if we have the ingredients we will add it to our menu!
+	</p>
 </div>
 
-{{!-- <h1>Burgers to {{devour}}</h1> --}}
-<div class="belly">
-	<h5>belly</h5>
+<div class="row">
+	<div class="col-12-lg">
+		<div class="submissionInput">
+			<form action="/" method="POST">
+				<textarea type="text" name="burger"></textarea>
+				<button id="menuAdd" type="submit">Submit</button>
+			</form>
+		</div>
+	</div>
 </div>
-<ul>
-	{{#each burgers }}
-	{{#if this.devoured}}
-	<li>{{this.burgerStyle}}</li>
-	{{/if}}
-	{{/each}}
-</ul>
 
-<form action="/" method="POST">
-	<textarea type="text" name="burger"></textarea>
+<div class="row">
+	<div class="col-6-lg">
+		<div class="burgersAvailable">
+			<h5>Burgers Available to eat</h5>
+			<ul>
+				{{#each burgers}}
+				{{#unless this.devoured}}
+				<li>
+					<p>Burger: {{this.burgerStyle}}</p>
+					<button class="devour" data-id='{{this.id}}'>devour</button>
+				</li>
+				{{/unless}}
+				{{/each}}
+			</ul>
+		</div>
+	</div>
 
-	<button type="submit">Submit</button>
-</form>
+	{{!-- <h1>Burgers to {{devour}}</h1> --}}
+	<div class="col-6-lg">
+		<div class="belly">
+			<h5>Burgers you have eaten</h5>
+			<ul>
+				{{#each burgers }}
+				{{#if this.devoured}}
+				<li>{{this.burgerStyle}}</li>
+				{{/if}}
+				{{/each}}
+			</ul>
+		</div>
+	</div>
+</div>
 
 <script>
 	$(document).ready(function () {
+		//add
+		$("#menuAdd").on("click", function (event) {
+			event.preventDefault()
+			// const id = $(this).attr("data-id")
+			// console.log($(this).attr("data-id"))
+			$.ajax({
+				method: "POST",
+				url: `/api`
+			}).then(function (res) {
+				location.reload()
+			})
+		})
+		//devour
 		$(".devour").on("click", function (event) {
 			event.preventDefault()
 			const id = $(this).attr("data-id")
-			console.log($(this).attr("data-id"))
+			// console.log($(this).attr("data-id"))
 			$.ajax({
 				method: "PUT",
 				url: `/api/${id}`

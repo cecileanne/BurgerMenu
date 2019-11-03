@@ -1,7 +1,40 @@
+body {
+  background-color: lightgoldenrodyellow;
+  padding: 20px;
+  margin: 20px;
+  align-content: center;
+}
+
+h1 {
+  align-content: center;
+}
+
+.submissionInput {
+  width: 100%;
+}
+
+.devour {
+  margin-top: 10px;
+  color: white;
+  background-color: navy;
+  align: center;
+  width: 90%;
+}
+
 li {
-  background-color: wheat;
-  margin-bottom: 10px;
+  background-color: lightyellow;
+  margin-bottom: 5px;
   padding: 10px;
-  width: 50%;
+  width: 90%;
   font-family: sans-serif;
+  border-color: navy;
+  border-width: 5px;
+}
+
+.burgersAvailable {
+  padding-top: 20px;
+}
+
+.belly {
+  padding-top: 20px;
 }
