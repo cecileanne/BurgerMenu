@@ -17,7 +17,7 @@ h1 {
   margin-top: 10px;
   color: white;
   background-color: navy;
-  align: center;
+  align-content: center;
   width: 90%;
 }
 
