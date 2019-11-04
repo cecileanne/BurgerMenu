@@ -8,23 +8,16 @@ module.exports = {
     });
   },
   // create a new uneaten burger,
-  cookNew: function(cb) {
-    orm.create(
-      "burgers",
-      "burgerStyle",
-      "devoured",
-      req.body.burger,
-      "0",
-      function(data) {
-        cb(data);
-      }
-    );
-  },
-  // move a burger to the devour area
-  devourOne: function(cb) {
-    orm.updateOne("burgers", "devoured", "1", "id", req.params.id, function(
+  cookNew: function(burgerName, cb) {
+    orm.create("burgers", "burgerStyle", "devoured", burgerName, 0, function(
       data
     ) {
+      cb(data);
+    });
+  },
+  // move a burger to the devour area
+  devourOne: function(id, cb) {
+    orm.updateOne("burgers", "devoured", 1, "id", id, function(data) {
       cb(data);
     });
   }

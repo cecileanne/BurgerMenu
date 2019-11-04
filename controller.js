@@ -9,14 +9,19 @@ module.exports = function(app) {
   });
 
   // adds new burger
-  app.post("/api", function(req, res) {
-    burger.cookNew(req.body.name, function(data) {
-      //   res.render("index", { burgers: data });
+  app.post("/api", function(req, res, next) {
+    console.log(`body ${req.body}`);
+    console.log(JSON.stringify(req.body));
+    burger.cookNew(req.body.burgerStyle, function(data) {
       res.json(data);
-      res.redirect("/");
     });
+    /*
+      .then(
+        //   res.redirect("/");
+        res.render("index", { burgers: data })
+      );
+      */
   });
-
   // moves burgers to the devoured column
   app.put("/api/:id", function(req, res) {
     burger.devourOne(req.params.id, function(data) {

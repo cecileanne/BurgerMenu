@@ -12,8 +12,8 @@
 <div class="row">
 	<div class="col-12-lg">
 		<div class="submissionInput">
-			<form action="/" method="POST">
-				<textarea type="text" name="burger"></textarea>
+			<form action="/api" method="POST">
+				<textarea type="text" name="burgerNew" id="newBurgerTextField"></textarea>
 				<button id="menuAdd" type="submit">Submit</button>
 			</form>
 		</div>
@@ -28,7 +28,7 @@
 				{{#each burgers}}
 				{{#unless this.devoured}}
 				<li>
-					<p>Burger: {{this.burgerStyle}}</p>
+					<p>{{this.burgerStyle}}</p>
 					<button class="devour" data-id='{{this.id}}'>devour</button>
 				</li>
 				{{/unless}}
@@ -59,9 +59,12 @@
 			event.preventDefault()
 			// const id = $(this).attr("data-id")
 			// console.log($(this).attr("data-id"))
+
+			const newBurger = { burgerStyle: $('#newBurgerTextField').val() }
 			$.ajax({
 				method: "POST",
-				url: `/api`
+				url: `/api`,
+				data: newBurger
 			}).then(function (res) {
 				location.reload()
 			})

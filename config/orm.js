@@ -11,16 +11,16 @@ module.exports = {
 
   // insertOne(),
   create: function(table, field1, field2, value1, value2, cb) {
-    queryString = "INSERT INTO ?? (?, ?) VALUES (?, ?)";
+    queryString = `INSERT INTO ?? (??, ??) VALUES (?, ?)`;
     connection.query(
       queryString,
-      table,
-      field1,
-      field2,
-      value1,
-      value2,
+      [table, field1, field2, value1, value2],
       function(err, data) {
-        if (err) throw err;
+        if (err) {
+          console.log(err.sql);
+          console.log(err.sqlMessage);
+          throw err;
+        }
         cb(data);
       }
     );
@@ -35,14 +35,10 @@ module.exports = {
     conditionValue,
     cb
   ) {
-    queryString = "UPDATE ?? SET ?? = ? WHERE ? = ?";
+    queryString = "UPDATE ?? SET ?? = ? WHERE ?? = ?";
     connection.query(
       queryString,
-      table,
-      columnToUpdate,
-      valueNew,
-      conditionField,
-      conditionValue,
+      [table, columnToUpdate, valueNew, conditionField, conditionValue],
       function(err, data) {
         if (err) throw err;
         cb(data);
